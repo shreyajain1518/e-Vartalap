@@ -11,15 +11,15 @@ import lombok.AllArgsConstructor;
 @Document
 public class Comment {
 	@Id
-   int comment_id;
-   int comment_abusive;
-   int postId;
-   int userId;
-   String  comment_text;
-   String[] comment_ratings;
-   int[] comment_reviews;
-   int comment_like;
-   int comment_dislike;
+	private int comment_id;
+	private int comment_abusive;
+	private int postId;
+	private int userId;
+	private String  comment_text;
+	private String[] comment_ratings;
+	private int[] comment_reviews;
+	private int comment_like;
+	private int comment_dislike;
    
 
    

@@ -11,15 +11,15 @@ import lombok.AllArgsConstructor;
 @Document
 public class Post {
 	@Id
-	Integer post_id;
-	int post_abusive;
-	int userId;
-    Date post_date;
-    String post_text;
-    int comment_id;
-    String[] post_ratings;
-    int[] post_reviews;
-    Comment[] comments;
+	private int post_id;
+	private int post_abusive;
+	private int userId;
+	private  Date post_date;
+	private String post_text;
+	
+	private String[] post_ratings;
+	private  int[] post_reviews;
+	private Comment[] comments;
 	
     
     
