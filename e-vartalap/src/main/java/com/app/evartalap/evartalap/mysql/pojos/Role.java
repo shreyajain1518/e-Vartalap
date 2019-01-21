@@ -1,4 +1,4 @@
-package com.app.evartalap.evartalap.pojos.mysqlpojos;
+package com.app.evartalap.evartalap.mysql.pojos;
 
 import javax.persistence.*;
 

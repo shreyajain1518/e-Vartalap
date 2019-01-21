@@ -1,4 +1,4 @@
-package com.app.evartalap.evartalap.pojos.mongodbpojos;
+package com.app.evartalap.evartalap.mongodb.pojos;
 
 import java.util.Date;
 

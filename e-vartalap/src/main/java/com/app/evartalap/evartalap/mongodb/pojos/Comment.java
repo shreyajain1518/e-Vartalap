@@ -1,5 +1,5 @@
 
-package com.app.evartalap.evartalap.pojos.mongodbpojos;
+package com.app.evartalap.evartalap.mongodb.pojos;
 
 
 import org.springframework.data.annotation.Id;
