@@ -1,16 +1,26 @@
 package com.app.evartalap.evartalap.mysql.pojos;
+import java.util.Set;
+
 import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+
 import com.mysql.cj.jdbc.Blob;
 
 @Entity
 public class User {
 
-	int user_id;
-	String user_name;
-	String user_email;
-	String user_password;
-	Role role;
-	Blob user_photo;
+	private Integer user_id;
+	private String user_name;
+	private String user_email;
+	private String user_password;
+	private int active;
+	private Blob user_photo;
+	
+	@ManyToOne(Cascade.CascadeType.class)
+	@JoinTable(name="user_role",joinColumns=@JoinColumn(name="user_id"),inverseJoinColumns=@JoinColumn(name="role_id"))
+	private Role role;
 	
 	public User() {
 		super();
@@ -33,6 +43,15 @@ public class User {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+	
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	public String getUser_name() {
@@ -81,6 +100,8 @@ public class User {
 		return "User [user_id=" + user_id + ", user_name=" + user_name + ", user_email=" + user_email
 				+ ", user_password=" + user_password + ", role=" + role + ", user_photo=" + user_photo + "]";
 	}
+
+	
 	
 	
 	

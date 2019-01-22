@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Role {
 	
-	int role_id;
+	Integer role_id;
 	String role_name;
 	public Role() {
 		super();
