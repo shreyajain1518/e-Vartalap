@@ -20,17 +20,19 @@ public class UserServiceImpl implements UserService {
 	private RoleDao roledao;
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	@Override
+	/*@Override
 	public User findUserByEmail(String email) {
 		return userdao.findByEmail(email);
 	}
-
+*/
 	@Override
 	public void saveUser(User user) {
 		
-		user.setUser_password(bCryptPasswordEncoder.encode(user.getUser_password()));
-		user.setActive(1);
-		Role userRole=roledao.findByRole("ADMIN");
+		//user.setUser_password(bCryptPasswordEncoder.encode(user.getUser_password()));
+		//user.setActive(1);
+		//userdao.findByUser_email(user_email);
+		//roledao.
+	//	Role userRole=roledao.findByRole("ADMIN");
 		//user.setRole(new HashSet<Role>(Arrays.asList(userRole)));
 		userdao.save(user);
 	}

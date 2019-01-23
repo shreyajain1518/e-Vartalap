@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.app.evartalap.evartalap.mysql.pojos.Role;
 @Repository("roleRepository ")
 public interface RoleDao extends JpaRepository<Role,Integer>{
-      Role findByRole(String role);
+     // Role findByRole(String role_name);
 }

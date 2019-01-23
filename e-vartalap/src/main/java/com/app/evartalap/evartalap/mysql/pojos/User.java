@@ -1,10 +1,10 @@
 package com.app.evartalap.evartalap.mysql.pojos;
-import java.util.Set;
+
 
 import javax.persistence.*;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToOne;
+//import javax.persistence.CascadeType;
+//import javax.persistence.ManyToOne;
 
 import com.mysql.cj.jdbc.Blob;
 
@@ -18,8 +18,8 @@ public class User {
 	private int active;
 	private Blob user_photo;
 	
-	@ManyToOne(Cascade.CascadeType.class)
-	@JoinTable(name="user_role",joinColumns=@JoinColumn(name="user_id"),inverseJoinColumns=@JoinColumn(name="role_id"))
+	//@ManyToOne(CascadeType.CascadeType.class)
+	//@JoinTable(name="user_role",joinColumns=@JoinColumn(name="user_id"),inverseJoinColumns=@JoinColumn(name="role_id"))
 	private Role role;
 	
 	public User() {

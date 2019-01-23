@@ -3,6 +3,7 @@ package com.app.evartalap.evartalap.mysql.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.app.evartalap.evartalap.mysql.pojos.User;
@@ -20,5 +21,9 @@ public interface UserDao extends JpaRepository<User,Integer>{
 	 User getUserlById(Integer userid);
 	 List<User> findAll();
 	 List<User> findByProperty(String propName,Object propValue);*/
-	User findByEmail(String email);
+	//User findByEmail(String user_email);
+	@Query("select u from User where u.user_email = ?1 and u.user_password = ?2")
+	User findByUser_emailandpassword(String user_email,String user_password);
+	@Query("select u from User where u.user_email = ?1")
+	User findByUser_email(String user_email);
 }

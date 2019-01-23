@@ -39,12 +39,12 @@ public class MySqlController {
   public ModelAndView createUser(@Valid User user ,BindingResult bindingResult)
   {
 	  ModelAndView model=new ModelAndView();
-	  User userExists=service.findUserByEmail(user.getUser_email());
+	  /*User userExists=service.findUserByUser_email(user.getUser_email());
 	  if(userExists!=null)
 	  {
 		  bindingResult.rejectValue("email","error.user","this email already exists");
 		  
-	  }
+	  }*/
 	  if(bindingResult.hasErrors()){
 		  model.setViewName("user/signup");
 		  
