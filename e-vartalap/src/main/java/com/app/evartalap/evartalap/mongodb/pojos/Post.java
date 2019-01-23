@@ -14,7 +14,7 @@ public class Post {
 	private int post_id;
 	private int post_abusive;
 	private int userId;
-	private  Date post_date;
+	private  Date post_date = new Date() ;
 	private String post_text;
 	
 	private String[] post_ratings;

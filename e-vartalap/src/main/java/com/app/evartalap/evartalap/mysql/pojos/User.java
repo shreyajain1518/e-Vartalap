@@ -3,10 +3,9 @@ package com.app.evartalap.evartalap.mysql.pojos;
 
 import javax.persistence.*;
 
-//import javax.persistence.CascadeType;
-//import javax.persistence.ManyToOne;
 
-import com.mysql.cj.jdbc.Blob;
+
+
 
 @Entity
 public class User {
@@ -16,32 +15,35 @@ public class User {
 	private String user_email;
 	private String user_password;
 	private int active;
-	private Blob user_photo;
+	@Lob
+	private byte[] user_photo;
 	
 	//@ManyToOne(CascadeType.CascadeType.class)
 	//@JoinTable(name="user_role",joinColumns=@JoinColumn(name="user_id"),inverseJoinColumns=@JoinColumn(name="role_id"))
+	
 	private Role role;
 	
 	public User() {
 		super();
 	}
 
-	public User(String user_name, String user_email, String user_password, Role role, Blob user_photo) {
+	public User(String user_name, String user_email, String user_password, Role role, byte[] user_photo,int active) {
 		super();
 		this.user_name = user_name;
 		this.user_email = user_email;
 		this.user_password = user_password;
 		this.role = role;
 		this.user_photo = user_photo;
+		this.active = active;
 	}
     
     @Id  
     @GeneratedValue(strategy=GenerationType.AUTO)  
-	public int getUser_id() {
+	public Integer getUser_id() {
 		return user_id;
 	}
 
-	public void setUser_id(int user_id) {
+	public void setUser_id(Integer user_id) {
 		this.user_id = user_id;
 	}
 	
@@ -79,6 +81,8 @@ public class User {
 		this.user_password = user_password;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "role_id")
 	public Role getRole() {
 		return role;
 	}
@@ -87,11 +91,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Blob getUser_photo() {
+	public byte[] getUser_photo() {
 		return user_photo;
 	}
 
-	public void setUser_photo(Blob user_photo) {
+	public void setUser_photo(byte[] user_photo) {
 		this.user_photo = user_photo;
 	}
 

@@ -5,10 +5,11 @@ import javax.persistence.*;
 @Entity
 public class Role {
 	
-	Integer role_id;
-	String role_name;
+	private Integer role_id;
+	private String role_name;
 	public Role() {
 		super();
+		System.out.println("Role default constructor");
 	}
 	public Role(String role_name) {
 		super();
@@ -17,10 +18,10 @@ public class Role {
 	
 	@Id  
 	@GeneratedValue(strategy=GenerationType.AUTO)  
-	public int getRole_id() {
+	public Integer getRole_id() {
 		return role_id;
 	}
-	public void setRole_id(int role_id) {
+	public void setRole_id(Integer role_id) {
 		this.role_id = role_id;
 	}
 	public String getRole_name() {

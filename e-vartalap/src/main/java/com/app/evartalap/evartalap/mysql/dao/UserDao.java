@@ -9,21 +9,11 @@ import org.springframework.stereotype.Repository;
 import com.app.evartalap.evartalap.mysql.pojos.User;
 
 
-@Repository("userRepository")
+@Repository
 public interface UserDao extends JpaRepository<User,Integer>{
-    /* User validateUser(String em,String pass);
-	 String register(User u);
-	 void updatePassword(User u);
-     String updateProfile(User u);
-	 String delete(User u);
-	 void delete(Integer userid);
-	 User getEmailById(Integer userid);
-	 User getUserlById(Integer userid);
-	 List<User> findAll();
-	 List<User> findByProperty(String propName,Object propValue);*/
-	//User findByEmail(String user_email);
-	@Query("select u from User where u.user_email = ?1 and u.user_password = ?2")
+  
+	@Query(value = "select u from User u where u.user_email = ?1 and u.user_password = ?2")
 	User findByUser_emailandpassword(String user_email,String user_password);
-	@Query("select u from User where u.user_email = ?1")
+	@Query(value  = "select u from User u where u.user_email = ?1")
 	User findByUser_email(String user_email);
 }
