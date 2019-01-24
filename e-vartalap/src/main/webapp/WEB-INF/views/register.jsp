@@ -17,30 +17,31 @@
                         Register
                 </h2>
               </div>
-              <form class="form-horizontal" style="margin-left: 50px;">
+              <form class="form-horizontal" style="margin-left: 50px;"method="post" >
                  <div class="form-group input-group">
                    <span class="input-group-addon">
                        <span class="glyphicon glyphicon-user"></span>
                    </span>
-                   <input type="name" class="form-control" 
+                   <input type="text" class="form-control" 
                    name="user_name" placeholder="Enter name... " required>
                  </div>
                  <div class="form-group input-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                         </span>
-                        <input type="name" class="form-control" 
+                        <input type="text" class="form-control" 
                         name="user_email" placeholder="Enter email... " required>
                  </div>
                  <div class="form-group input-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-user"></span>
                         </span>
-                        <input type="name" class="form-control" 
+                        <input type="text" class="form-control" 
                         name="user_password" placeholder="Enter password... " required>
                  </div>
                  <div class="form-group">
-                   <button class="btn btn-primary" style="width:90px;">Register</button>
+                 <input type = "submit" value = "submit">
+                   <!-- <button class="btn btn-primary" style="width:90px;">Register</button> -->
                  </div>
                  
               </form>

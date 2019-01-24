@@ -17,6 +17,18 @@ public class RoleService {
 
  public void saveRole(Role role)
  {
-	rd.save(role);
+	 if(role!=null){
+		 try{
+	 
+	rd.saveAndFlush(role);
+	System.out.println("role is saved");
+		 }
+		 catch(Exception e){
+			 System.out.println("Exception in role");
+		 }
+	 }
+	 else{
+		 System.out.println("role is null");
+	 }
  }
 }

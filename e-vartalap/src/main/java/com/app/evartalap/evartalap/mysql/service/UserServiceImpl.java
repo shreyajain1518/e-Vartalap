@@ -2,8 +2,12 @@ package com.app.evartalap.evartalap.mysql.service;
 
 import java.util.HashSet;
 
+import javax.persistence.NoResultException;
+
 import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +24,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userdao;
-
+	@Autowired
+	JavaMailSender javamailserver;
 	
 	/*@Override
 	public User findUserByEmail(String email) {
@@ -36,19 +41,56 @@ public class UserServiceImpl implements UserService {
 		//roledao.
 	//	Role userRole=roledao.findByRole("ADMIN");
 		//user.setRole(new HashSet<Role>(Arrays.asList(userRole)));
-		userdao.save(user);
+		try{
+		userdao.saveAndFlush(user);
+		}catch(Exception e)
+		{
+		System.out.println("Exception in user");
+		}
 	}
 	
 	@Override
 	public User findUserByUser_email(String user_email) {
-		// TODO Auto-generated method stub
-		return userdao.findByUser_email(user_email);
+
+		User user = null;
+		try{
+			user = userdao.findByUser_email(user_email);
+		}catch(Exception e)
+		{
+			System.out.println("no email is found ");
+		}
+	
+		return user;
 	}
 	@Override
 	public User findByUser_emailandpassword(String user_email, String user_password) {
 
 		User user=userdao.findByUser_emailandpassword(user_email, user_password);
 		return user;
+	}
+
+	@Override
+	public String forgetpassword(String user_email) {
+		
+		User user = null;
+		
+		try{
+			user = userdao.findByUser_email(user_email);
+			String password = user.getUser_password();
+			SimpleMailMessage mail = new SimpleMailMessage();
+			mail.setTo(user_email);
+			mail.setFrom("z.rahul.k@gmail.com");
+			mail.setSubject("Password");
+			mail.setText(password);
+			javamailserver.send(mail);
+		}
+		catch(NoResultException e)
+		{
+			System.out.println(e);
+			return "invalid email";
+		}
+		
+		return "valid";
 	}
 
 	

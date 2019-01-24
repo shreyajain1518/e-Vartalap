@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,8 @@ import com.app.evartalap.evartalap.mysql.service.UserService;
 
 
 @Controller
-
+@ComponentScan
+@RequestMapping("/")
 public class MySqlController {
   @Autowired
   
@@ -29,52 +31,80 @@ public class MySqlController {
   @Autowired
   private RoleService roleservice;
   
-  @RequestMapping(value={"/","/login"},method=RequestMethod.GET)
-  public ModelAndView getLogin(){
-	  ModelAndView model=new ModelAndView();
-	  model.setViewName("user/login");
-	  return model;
+  @GetMapping("/home")
+  public String get()
+  {
+	  System.out.println("================getCalled");
+	  return "home";
+  }
+  
+  
+  @GetMapping("/login1")
+  public String getLogin(){
+	  
+	  
+	  System.out.println("get login");
+	  return "login1";
 	  
   }
   
-  @PostMapping("/login")
-  public ModelAndView postLogin(@RequestParam("user_email") String email,@RequestParam("user_password") String password,HttpSession hs){
+  @PostMapping("/login1")
+  public String postLogin(@RequestParam("user_email") String email,@RequestParam("user_password") String password,HttpSession hs){
 	ModelAndView model=new ModelAndView();
 	User user = null;
 	try{
+		System.out.println("post method of login");
 	 user=service.findByUser_emailandpassword(email,password);
 	}catch(NoResultException e)
 	{
 		System.out.println(e);
-		model.setViewName("user/login");
-		return model;
+		model.setViewName("/login1");
+		return "redirect:/login1";
 	}
 	model.addObject("user",user);
-	model.setViewName("user/signup");
+	model.setViewName("/home");
 	hs.setAttribute("user", user);
-	return model;
+	if(user==null)
+		return "redirect:/login1";
+	else
+	return "redirect:"
+			+ "/home";
 	
   }
-
-  
-  @PostMapping("/user/registration")
-  public ModelAndView registration(@RequestBody User user)
+  @GetMapping("/register")
+  public String registration()
+  {
+	  ModelAndView model = new ModelAndView();
+	  model.setViewName("register");
+	  System.out.println("Register get method");
+	  return "register";
+  }
+  @PostMapping("/register")
+  public String getregistration(@RequestParam("user_name") String user_name,@RequestParam("user_email") String user_email, @RequestParam("user_password") String user_password )
   {
 	  ModelAndView model=new ModelAndView();
-	 if(user.getUser_email().equals(service.findUserByUser_email(user.getUser_email()).getUser_email()))
+	  User user = new User();
+	  System.out.println("register post method");
+	 if(service.findUserByUser_email(user_email)==null)
 	 {//Role role = roleservice.saveRole(role);
 		Role role = new Role("user");
 		roleservice.saveRole(role);
 		user.setRole(role);
-		
+		user.setUser_name(user_name);
+		user.setUser_email(user_email);
+		user.setUser_password(user_password);
+		user.setActive(0);
+		user.setUser_photo(null);
 		service.saveUser(user);
-	 model.setViewName("/user/login");
+	 model.setViewName("/login");
+	 System.out.println("successfull saving");
+	 return "redirect:login1";
 	 }
-	 
-	  model.setViewName("/user/registration");
-	 
-	 return model;	  
-		  
+	 else{
+	  model.setViewName("/register");
+	  System.out.println("Unsuccessfull ");
+	 return "redirect:home";	  
+	 }
 	  }
 	 
 	  
@@ -82,14 +112,25 @@ public class MySqlController {
   	public String forgetPassword()
   	{
   		
-  		return "/forgetpassword";
+  		return "forgetpassword";
   	}
   	@PostMapping("/forgetpassword")
-  	public String changepassword(@RequestParam String email ){
-  		
-  		
-  		return "/login";
-  	}
+  	public ModelAndView changepassword(@RequestParam String user_email ){
+  		ModelAndView model = new ModelAndView();
+  		if(service.forgetpassword(user_email).equals("valid")){
+  			model.addObject("message","successful");
+  			
+  		 model.setViewName   ("redirect:/login");
+  		return model;
+  		}
+  		else{
+  			model.addObject("message","unsuccessful");
+  			 model.setViewName("redirect:/forgetpassword");
+  			return	model;	
+  		}
+  	
+  	}	
+  	
   	
      @RequestMapping(value={"/home/home"},method=RequestMethod.POST)
      public ModelAndView home(){
@@ -99,7 +140,7 @@ public class MySqlController {
      @GetMapping("/update")
      public ModelAndView updateProfile(HttpSession hs){
     	 ModelAndView model = new ModelAndView();
-    	 model.setViewName("/updateprofile");
+    	 model.setViewName("redirect:/updateprofile");
     	 return model;
     	 
      }

@@ -6,6 +6,10 @@
      <meta charset="utf-8">
 	 <title>Login form</title>
 	 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	     <meta name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+	 
   </head>
   <body>
     <div class="container">
@@ -16,7 +20,7 @@
                         Login
                 </h2>
               </div>
-              <form class="form-horizontal" style="margin-left: 50px;">
+              <form class="form-horizontal" style="margin-left: 50px;" method="post" action="/login1">
                  <div class="form-group input-group">
                    <span class="input-group-addon">
                        <span class="glyphicon glyphicon-user"></span>
@@ -38,13 +42,14 @@
                     </label>
                  </div>
                  <div class="form-group">
-                   <button class="btn btn-primary" style="width:90px;">Login</button>
+                 <input type = "submit" value = "submit">
+                   <!--  <button class="btn btn-primary" style="width:90px;">Login</button>-->
                  </div>
                  <div class="form-group">
                     <a href="a" style="margin-left: 310px;">Forget password</a>
                  </div>
                  <div class="form-group">
-                    <a href="a" style="margin-left">Register here</a>
+                    <a href="/register" style="margin-left">Register here</a>
                  </div>
               </form>
         
