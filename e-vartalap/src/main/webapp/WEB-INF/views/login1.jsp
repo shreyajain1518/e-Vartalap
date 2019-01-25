@@ -5,13 +5,15 @@
   <head>
      <meta charset="utf-8">
 	 <title>Login form</title>
-	 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 	     <meta name="_csrf" content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
     <meta name="_csrf_header" content="${_csrf.headerName}"/>
 	 
   </head>
+  
   <body>
+  <jsp:include page="common_user.jsp"/>
     <div class="container">
 	    <div class="col-sm-10" style="width: 600px;margin-left:250px;margin-top:5">
 	        <div class="jumbotron">
@@ -42,11 +44,11 @@
                     </label>
                  </div>
                  <div class="form-group">
-                 <input type = "submit" value = "submit">
+                 <input type = "submit" class="btn btn-first" value = "submit">
                    <!--  <button class="btn btn-primary" style="width:90px;">Login</button>-->
                  </div>
                  <div class="form-group">
-                    <a href="a" style="margin-left: 310px;">Forget password</a>
+                    <a href="/forgetpassword" style="margin-left: 310px;">Forget password</a>
                  </div>
                  <div class="form-group">
                     <a href="/register" style="margin-left">Register here</a>

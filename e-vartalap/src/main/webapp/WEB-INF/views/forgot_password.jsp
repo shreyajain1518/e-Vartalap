@@ -6,9 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
      <meta charset="utf-8">
 	 <title>Login form</title>
-	 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	 <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
 </head>
 <body>
+<jsp:include page="common_user.jsp"/>
     <div class="container">
 	    <div class="col-sm-10" style="width: 600px;margin-left:250px;margin-top:5">
 	        <div class="jumbotron">

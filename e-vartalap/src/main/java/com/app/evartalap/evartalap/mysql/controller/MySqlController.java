@@ -112,7 +112,7 @@ public class MySqlController {
   	public String forgetPassword()
   	{
   		
-  		return "forgetpassword";
+  		return "forgot_password";
   	}
   	@PostMapping("/forgetpassword")
   	public ModelAndView changepassword(@RequestParam String user_email ){
@@ -125,7 +125,7 @@ public class MySqlController {
   		}
   		else{
   			model.addObject("message","unsuccessful");
-  			 model.setViewName("redirect:/forgetpassword");
+  			 model.setViewName("redirect:/forgot_password");
   			return	model;	
   		}
   	
