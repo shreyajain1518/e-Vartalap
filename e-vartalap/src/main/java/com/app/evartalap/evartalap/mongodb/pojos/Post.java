@@ -10,10 +10,11 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Document
 public class Post {
+	
 	@Id
 	private int post_id;
 	private int post_abusive;
-	private int userId;
+	private int user_id;
 	private  Date post_date = new Date() ;
 	private String post_text;
 	
@@ -21,7 +22,54 @@ public class Post {
 	private  int[] post_reviews;
 	private Comment[] comments;
 	
-    
+	public int getPost_id() {
+		return post_id;
+	}
+	public void setPost_id(int post_id) {
+		this.post_id = post_id;
+	}
+	public int getPost_abusive() {
+		return post_abusive;
+	}
+	public void setPost_abusive(int post_abusive) {
+		this.post_abusive = post_abusive;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public Date getPost_date() {
+		return post_date;
+	}
+	public void setPost_date(Date post_date) {
+		this.post_date = post_date;
+	}
+	public String getPost_text() {
+		return post_text;
+	}
+	public void setPost_text(String post_text) {
+		this.post_text = post_text;
+	}
+	public String[] getPost_ratings() {
+		return post_ratings;
+	}
+	public void setPost_ratings(String[] post_ratings) {
+		this.post_ratings = post_ratings;
+	}
+	public int[] getPost_reviews() {
+		return post_reviews;
+	}
+	public void setPost_reviews(int[] post_reviews) {
+		this.post_reviews = post_reviews;
+	}
+	public Comment[] getComments() {
+		return comments;
+	}
+	public void setComments(Comment[] comments) {
+		this.comments = comments;
+	}
     
     
 
