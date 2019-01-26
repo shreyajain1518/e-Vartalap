@@ -1,6 +1,7 @@
 package com.app.evartalap.evartalap.mongodb.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -26,18 +27,18 @@ public class MongoController {
 	}
 	//getting all posts
 	
-	@RequestMapping(value="",method=RequestMethod.GET)
+	@RequestMapping(value="/allpost",method=RequestMethod.GET)
 	public List<Post> getAllPosts(){
 		LOG.info("getting all posts");
 		return postdao.findAll();
 		
 	}
-	//getting post by userid
+	//getting post by postid
 	
-	@RequestMapping(value="/{user_id}",method=RequestMethod.GET)
-	public Post getPost(@PathVariable Integer user_id){
-		LOG.info("getting post with id:{}.",user_id);
-		return postdao.findOne(user_id);
+	@RequestMapping(value="/{post_id}",method=RequestMethod.GET)
+	public Optional<Post> getPost(@PathVariable Integer post_id){
+		LOG.info("getting post with id:{}.",post_id);
+		return postdao.findById(post_id);
 		
 	}
 	
