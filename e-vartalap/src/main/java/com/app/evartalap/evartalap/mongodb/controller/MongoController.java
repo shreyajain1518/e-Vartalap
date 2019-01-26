@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -53,20 +54,38 @@ public class MongoController {
 	//adding new post
 	
 	@PostMapping("/submit")
-	  public String getregistration(@RequestParam("post") String post_text,HttpSession hs )
+	  public String submitPost(@RequestParam("post") String post_text,HttpSession hs )
 	  {
+		User currentUser=(User)hs.getAttribute("user");
+		if(currentUser==null)
+		{
+			
+			return "redirect:/login1";
+		}
 		  ModelAndView model=new ModelAndView();
 		  Post post = new Post();
 		 post.setPost_text(post_text);
-		 User currentUser=(User)hs.getAttribute("user");
+		 
 		 post.setUser_id(currentUser.getUser_id());
 		 postdao.save(post);
 		 model.setViewName("/home");
 		 System.out.println("successfull saving");
-		 postdao.findAll().size();
-		 return "";
+		 return ""+ postdao.findAll();
+		
 		 }
-		  
-		 
+	
+	    @GetMapping("/home1")
+	    public String loadPost(HttpSession hs )
+		{
+	    	ModelAndView model = new ModelAndView();
+			User currentUser=(User)hs.getAttribute("user");
+			if(currentUser==null)
+			{
+				return "redirect:/login1";
+			}
+			model.setViewName("home");
+			hs.setAttribute("allPost",postdao.findAll());	
+			return "redirect:"+"home";
+		}
 	
 }
