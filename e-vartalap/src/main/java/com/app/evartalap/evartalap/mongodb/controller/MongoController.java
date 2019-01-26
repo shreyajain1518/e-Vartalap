@@ -1,5 +1,6 @@
 package com.app.evartalap.evartalap.mongodb.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,11 +27,12 @@ import com.app.evartalap.evartalap.mysql.pojos.User;
 @RequestMapping(value="/")
 public class MongoController {
 
+    @Autowired
+	
+	private PostDao postdao;
+    
 	private final Logger LOG=LoggerFactory.getLogger(getClass());
-	
-	
-	private final PostDao postdao;
-	
+
 	public MongoController(PostDao postdao){
 		
 		this.postdao=postdao;
@@ -67,6 +71,39 @@ public class MongoController {
 		 return "";
 		 }
 		  
+	@GetMapping("/post")
+	public String getPost()
+	{
+		return "/post";
+	}
+	@PostMapping("/post")
+	public String savePost(@RequestParam("post_text")String post_text, HttpSession hs)
+	{
+		Post post = new Post();
+		post.setPost_date(new Date());
+		post.setPost_text(post_text);
+		User user = (User) hs.getAttribute("user");
+		post.setUser_id(user.getUser_id());
+		try{
+		postdao.save(post);
+
+	}catch(Exception e)
+		{
+		System.out.println("exception in mongodb comtroller: "+ e);
+		return "redirect:home";
+		}
+		
+		return "redirect:listpost";
+	
+	}
+	//getting all list
+	@GetMapping("/listpost")
+	public String getlistpost()
+	{
+		System.out.println("in get method of list");
+		return "listpost";
+	}
+	   
 		 
 	
 }
