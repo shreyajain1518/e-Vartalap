@@ -18,7 +18,7 @@
                   
                    <textarea class="form-control" name="post" placeholder="Enter your post" rows="5" cols="160"></textarea>
                  </div>
-                 
+                 gyyb
                
                  <div class="form-group">
                  <input type = "submit" class="btn btn-first" value = "submit">
