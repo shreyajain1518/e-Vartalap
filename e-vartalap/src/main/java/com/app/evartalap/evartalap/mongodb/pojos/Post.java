@@ -17,6 +17,7 @@ public class Post {
 	private int user_id;
 	private  Date post_date = new Date() ;
 	private String post_text;
+	private String user_name;
 	
 	private String[] post_ratings;
 	private  int[] post_reviews;
@@ -70,7 +71,12 @@ public class Post {
 	public void setComments(Comment[] comments) {
 		this.comments = comments;
 	}
-    
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
     
 
 }

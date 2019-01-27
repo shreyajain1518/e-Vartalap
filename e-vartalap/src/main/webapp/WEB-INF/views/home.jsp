@@ -22,30 +22,51 @@
 							placeholder="Enter your post" rows="5" cols="160"></textarea>
 					</div>
 					<div class="form-group">
-						<input type="submit" class="btn btn-first" value="submit">
+						<input type="submit" class="btn btn-first" value="Post">
 						<input type="button" class="btn btn-first" value="clear">
-
-					</div>
+				  </div>
 
 				</form>
-				<div id="allPost">
-
+				<div id="allPost" class="jumbotron">
+					All Posts
 					<c:forEach items="${allPost}" var="post">
-						<div>${post.post_text}</div>
-
-						<form class="form-horizontal" method="post" action=/submit>
-							<div class="form-group input-group">
-
-								<textarea class="form-control" name="post"
-									placeholder="Enter your comment" rows="5" cols="160"></textarea>
+						<table>
+							<tr>
+								<td><div>${post.user_name} posted on ${comment.post_date}</div>
+								<td>
+							</tr>
+							<tr>
+								<td>
+									<div>${post.post_text}</div>
+								</td>
+							</tr>
+							<tr>
+							<td>
+							<form class="form-horizontal" method="post" action=/comment>
+								<div class="form-group input-group">
+									<textarea class="form-control" name="comment"
+										placeholder="Enter your comment" rows="4" cols="180"></textarea>
+										<input type="hidden" name="${post.post_id}" />
+																		</div>
+								<div class="form-group">
+									<input type="submit" class="btn btn-first" value="Comment">
+									<input type="button" class="btn btn-first" value="clear">
+								</div>
+							</form>
+							</td>
+							</tr>
+							<tr>
+							<td><div id="all comments">
+							<c:forEach items="${post.comments}" var="comment">
+							<div>${comment.user_name}commented on ${comment.comment_date}</div>
+							<div>${comment.comment_text}</div>
+							<div>Liked By ${comment.comment_like}  : Disliked By ${comment.comment_dislike}</div>
+							</c:forEach>
 							</div>
-							<div class="form-group">
-								<input type="submit" class="btn btn-first" value="submit">
-								<input type="button" class="btn btn-first" value="clear">
-
-							</div>
-
-						</form>
+							<td>
+							</tr>
+						</table>
+						
 					</c:forEach>
 
 				</div>

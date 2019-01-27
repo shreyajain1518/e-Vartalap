@@ -1,16 +1,13 @@
 package com.app.evartalap.evartalap.mongo.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,111 +19,86 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.evartalap.evartalap.mongodb.dao.PostDao;
+import com.app.evartalap.evartalap.mongodb.pojos.Comment;
 import com.app.evartalap.evartalap.mongodb.pojos.Post;
 import com.app.evartalap.evartalap.mysql.pojos.User;
 
 @RestController
-@RequestMapping(value="/")
+@RequestMapping(value = "/")
 public class MongoController {
 
-    @Autowired
-	
-	private PostDao postdao;
-    
-	private final Logger LOG=LoggerFactory.getLogger(getClass());
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-	public MongoController(PostDao postdao){
-		
-		this.postdao=postdao;
+	private final PostDao postdao;
+
+	public MongoController(PostDao postdao) {
+
+		this.postdao = postdao;
 	}
-	//getting all posts
-	
-	@RequestMapping(value="/allpost",method=RequestMethod.GET)
-	public List<Post> getAllPosts(){
+	// getting all posts
+
+	@RequestMapping(value = "/allpost", method = RequestMethod.GET)
+	public List<Post> getAllPosts() {
 		LOG.info("getting all posts");
 		return postdao.findAll();
-		
+
 	}
-	//getting post by postid
-	
-	@RequestMapping(value="/{post_id}",method=RequestMethod.GET)
-	public Optional<Post> getPost(@PathVariable Integer post_id){
-		LOG.info("getting post with id:{}.",post_id);
+	// getting post by postid
+
+	@RequestMapping(value = "/{post_id}", method = RequestMethod.GET)
+	public Optional<Post> getPost(@PathVariable Integer post_id) {
+		LOG.info("getting post with id:{}.", post_id);
 		return postdao.findById(post_id);
-		
+
 	}
-	
-	//adding new post
-	
+
+	// adding new post
+
 	@PostMapping("/submit")
-	  public String submitPost(@RequestParam("post") String post_text,HttpSession hs )
-	  {
-		User currentUser=(User)hs.getAttribute("user");
-		if(currentUser==null)
-		{
-			
+	public ModelAndView savePost(@RequestParam("post") String post_text, HttpSession hs) {
+		ModelAndView model = new ModelAndView();
+		User currentUser = (User) hs.getAttribute("user");
+		if (currentUser == null) {
+			model.setViewName("login1");
+		}
+		
+		Post post = new Post();
+		post.setPost_text(post_text);
+        post.setPost_id( postdao.findAll().size()+1);
+		post.setUser_id(currentUser.getUser_id());
+		post.setUser_name(currentUser.getUser_name());
+		postdao.save(post);
+		System.out.println("successfull saving");
+		hs.setAttribute("allPost", postdao.findAll());
+		model.setViewName("home");
+		return model;
+	}
+	@PostMapping("/comment")
+	public String saveComment(@RequestParam("comment") String comment_text,@RequestParam("post_id") int post_Id, HttpSession hs) {
+		User currentUser = (User) hs.getAttribute("user");
+		if (currentUser == null) {
 			return "redirect:/login1";
 		}
-		  ModelAndView model=new ModelAndView();
-		  Post post = new Post();
-		 post.setPost_text(post_text);
-		 
-		 post.setUser_id(currentUser.getUser_id());
-		 postdao.save(post);
-		 model.setViewName("/home");
-		 System.out.println("successfull saving");
-		 return ""+ postdao.findAll();
-		
-	  }
-		  
-	@GetMapping("/post")
-	public String getPost()
-	{
-		return "/post";
+		Comment post = new Comment();
+//		post.getComment_text(comment_text);
+//        post.setPost_id( UUID.randomUUID();
+//		post.setUser_id(currentUser.getUser_id());
+//		post.setUser_name(currentUser.getUser_name());
+//		postdao.save(post);
+//		System.out.println("successfull saving");
+		return "redirect:/home1";
 	}
-	@PostMapping("/post")
-	public String savePost(@RequestParam("post_text")String post_text, HttpSession hs)
-	{
-		Post post = new Post();
-		post.setPost_date(new Date());
-		post.setPost_text(post_text);
-		User user = (User) hs.getAttribute("user");
-		post.setUser_id(user.getUser_id());
-		try{
-		postdao.save(post);
-
-	}catch(Exception e)
-		{
-		System.out.println("exception in mongodb comtroller: "+ e);
-		return "redirect:home";
+	@GetMapping("/home1")
+	public ModelAndView loadAllPost(HttpSession hs) {
+		ModelAndView model = new ModelAndView();
+		User currentUser = (User) hs.getAttribute("user");
+		if (currentUser == null) {
+			model.setViewName("login1");
+			return model;
 		}
-		
-		return "redirect:listpost";
-	
+		model.setViewName("home");
+		hs.setAttribute("allPost", postdao.findAll());
+		return model;
 	}
-	//getting all list
-	@GetMapping("/listpost")
-	public String getlistpost()
-	{
-		System.out.println("in get method of list");
-		return "listpost";
-	}
-	   
-		 
-	
-	    @GetMapping("/home1")
-	    public String loadPost(HttpSession hs )
-		{
-	    	ModelAndView model = new ModelAndView();
-			User currentUser=(User)hs.getAttribute("user");
-			if(currentUser==null)
-			{
-				return "redirect:/login1";
-			}
-			model.setViewName("home");
-			hs.setAttribute("allPost",postdao.findAll());	
-			return "redirect:"+"home";
-		}
 
-	
 }
