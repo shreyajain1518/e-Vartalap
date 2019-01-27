@@ -75,7 +75,7 @@ public class MySqlController {
 		return "redirect:/login1";
 	else
 	return "redirect:"
-			+ "/home";
+			+ "/home1";
 	
   }
   @GetMapping("/register")
