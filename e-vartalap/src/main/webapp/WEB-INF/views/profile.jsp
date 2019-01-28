@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-     <meta charset="utf-8"></meta>
+<meta charset="utf-8">
 	 <title>Login form</title>
 	 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
-   <div class="container">
+    <div class="container">
 	    <div class="col-sm-10" style="width: 600px;margin-left:250px;margin-top:5">
 	        <div class="jumbotron">
                <div class="form-group" style="margin-top: -50px;">
@@ -17,32 +17,33 @@
                         Profile
                 </h2>
               </div>
-              <form class="form-horizontal" style="margin-left: 50px;">
+              <form class="form-horizontal" style="margin-left: 50px;" method="post">
                  <div class="form-group input-group">
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-user"></span>
                     </span>
-                    <h4>Id:</h4>
+                    <h4>Id: ${sessionScope.user.user_id}</h4>
                  </div>
                  <div class="form-group input-group">
                    <span class="input-group-addon">
                        <span class="glyphicon glyphicon-user"></span>
                    </span>
-                   <h4 >Name:</h4>
+                   <h4 >Name: ${sessionScope.user.user_name}</h4>
                  </div>
                  <div class="form-group input-group">
                     <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-envelope"></span>
+                        <span class="gly
+                        phicon glyphicon-envelope"></span>
                     </span>
-                    <h4>Email address:</h4>
+                    <h4>Email address: ${sessionScope.user.user_email}</h4>
                   </div>
-    
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary" style="width:90px;" value="update"></input>
+                  </div>        
               </form>
 	        </div>    
       </div>
    </div>
     <script src="js/bootstrap.min.js" type="text/javasript"></script>
-  
-
 </body>
 </html>

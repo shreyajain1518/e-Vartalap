@@ -1,4 +1,7 @@
+
 package com.app.evartalap.evartalap.mysql.controller;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.evartalap.evartalap.mysql.dao.UserDao;
 import com.app.evartalap.evartalap.mysql.pojos.Role;
 import com.app.evartalap.evartalap.mysql.pojos.User;
 import com.app.evartalap.evartalap.mysql.service.RoleService;
@@ -37,6 +41,8 @@ public class MySqlController {
   private UserService service;
   @Autowired
   private RoleService roleservice;
+  @Autowired
+  private UserDao userdao;
   
   @GetMapping("/home")
   public String get()
@@ -187,6 +193,42 @@ public class MySqlController {
  		 model.addAttribute("msg","Successfuly uploaded files"+fileNames.toString());
           return "uploadstatusview";
  	}
-     
+ 	@GetMapping("/profile")
+ 	public String showProfile(HttpSession hs)
+ 	{System.out.println(hs.getAttribute("user"));
+ 		System.out.println("in show profile..........get");
+ 		return "profile";
+ 	}
+ 	@PostMapping("/profile")
+ 	public String getProfile(HttpSession hs)
+ 	{
+ 		System.out.println("in get profile..........post");
+ 		return "redirect:updateProfile";
+ 		
+ 	}
+ 	
+ 	@GetMapping("/updateProfile")
+ 	public String updateProfile()
+ 	{
+ 		System.out.println("in update profile..........get");
+ 		return "updateProfile";
+ 	}
+ 	@PostMapping("/updateProfile")
+ 	public String getupdateProfile(HttpSession hs,@RequestParam("user_password")String password)
+ 	{
+ 		System.out.println("in get update profile............post");
+ 		User user=(User)hs.getAttribute("user");
+ 		System.out.println(password);
+ 								user.setUser_password(password);
+ 		userdao.saveAndFlush(user);
+ 		System.out.println(user);
+ 		System.out.println("post update complete................");
+ 		return "redirect:profile";	
+ 	}
+ 	@GetMapping("/admin")
+ 	public String adminDetails()
+ 	{
+ 		return "";
+ 	}
 }
 

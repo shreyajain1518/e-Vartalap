@@ -40,7 +40,7 @@
 
 
 <li><a href="">Home</a></li>
-<li><a href="">View Profile</a></li>
+<li><a href="/profile">View Profile</a></li>
 <li><a href="">View Users</a></li>
 <li><a href="">Logout</a></li>
 </ul>
