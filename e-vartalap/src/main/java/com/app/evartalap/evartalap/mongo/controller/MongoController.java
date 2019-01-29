@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.evartalap.evartalap.mongodb.dao.CommentDao;
 import com.app.evartalap.evartalap.mongodb.dao.PostDao;
 import com.app.evartalap.evartalap.mongodb.pojos.Comment;
 import com.app.evartalap.evartalap.mongodb.pojos.Post;
@@ -30,7 +33,11 @@ public class MongoController {
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
 	private final PostDao postdao;
-
+	@Autowired 
+	private  CommentDao commentdao;
+	
+	
+	
 	public MongoController(PostDao postdao) {
 
 		this.postdao = postdao;
@@ -100,5 +107,26 @@ public class MongoController {
 		hs.setAttribute("allPost", postdao.findAll());
 		return model;
 	}
+
+	@GetMapping("/commentlist")
+	public String getcommentslist(@RequestParam int postid,Model map)
+	{
+		List<Comment> comment = commentdao.findByPostId(postid);
+	    map.addAttribute("commentlist", comment);
+		return "commnetlist";	
+	}
+	@PostMapping("/commnetlist")
+	public String postcommnetlist()
+	{
+		return "redirect:postlist";
+	}
+	@GetMapping("/postlist")
+	public String getpostlist(HttpSession hs,Model map)
+	{
+		List<Post> postlist = postdao.findAll();
+		map.addAttribute("postlist", postlist);
+		return "postlist";
+	}
+										
 
 }
