@@ -98,6 +98,11 @@ public class MongoController {
 			return "redirect:/login1";
 		}
 		Comment comment = new Comment();
+		
+		
+		
+		int count=keydao.findByIdnum(2).getValue();
+		
 //		post.getComment_text(comment_text);
 //        post.setPost_id( UUID.randomUUID();
 //		post.setUser_id(currentUser.getUser_id());

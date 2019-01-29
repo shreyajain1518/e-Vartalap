@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
@@ -228,7 +229,22 @@ public class MySqlController {
  	@GetMapping("/admin")
  	public String adminDetails()
  	{
- 		return "";
+ 		return "admin";
  	}
+ 	@GetMapping("/userlist")
+ 	public String getuserList(HttpSession hs, Model map)
+ 	{
+ 		List<User> userlist = userdao.findAll();
+ 								map.addAttribute("userlist", userlist);
+ 								
+ 		
+ 		return "userlist";
+ 	}
+ 	@PostMapping("/userlist")
+ 	public String postuserlist(HttpSession hs)
+ 	{
+ 		return "redirect:admin";
+ 	}
+ 	
 }
 

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <meta charset="utf-8">
-	 <title>Login form</title>
+	 <title>updateProfile form</title>
 	 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
