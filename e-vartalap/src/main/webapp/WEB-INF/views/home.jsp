@@ -47,10 +47,10 @@
 								<div class="form-group input-group">
 									<textarea class="form-control" name="comment"
 										placeholder="Enter your comment" rows="4" cols="180"></textarea>
-										<input type="hidden" name="${post.post_id}" />
+										<input type="hidden" name= "newid" value = ${post.post_id} />
 																		</div>
 								<div class="form-group">
-									<input type="submit" class="btn btn-first" value="Comment">
+									<input type="submit" class="btn btn-first" value="Comment" name="${post.post_id}">
 									<input type="button" class="btn btn-first" value="clear">
 								</div>
 							</form>

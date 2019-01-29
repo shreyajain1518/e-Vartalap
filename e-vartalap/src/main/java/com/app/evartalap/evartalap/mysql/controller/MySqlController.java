@@ -45,12 +45,12 @@ public class MySqlController {
   @Autowired
   private UserDao userdao;
   
-  @GetMapping("/home")
+  /*@GetMapping("/home")
   public String get()
   {
 	  System.out.println("================getCalled");
 	  return "home";
-  }
+  }*/
   
   
   @GetMapping("/login1")
@@ -82,7 +82,7 @@ public class MySqlController {
 		return "redirect:/login1";
 	else
 	return "redirect:"
-			+ "/home1";
+			+ "/home";
 	
   }
   @GetMapping("/register")

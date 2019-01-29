@@ -1,5 +1,7 @@
+
 package com.app.evartalap.evartalap.mongo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.evartalap.evartalap.mongodb.dao.CommentDao;
 import com.app.evartalap.evartalap.mongodb.dao.PostDao;
 import com.app.evartalap.evartalap.mongodb.pojos.Comment;
 import com.app.evartalap.evartalap.mongodb.pojos.Post;
@@ -28,7 +31,7 @@ import com.app.evartalap.evartalap.mysql.pojos.KeyGenerator;
 import com.app.evartalap.evartalap.mysql.pojos.User;
 
 @Controller
-@RequestMapping(value = "/")
+//@RequestMapping(value = "/")
 public class MongoController {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
@@ -36,7 +39,10 @@ public class MongoController {
 	private final PostDao postdao;
 	@Autowired 
 	KeyGeneratorDao keydao;
-	public MongoController(PostDao postdao) {
+	
+	@Autowired
+	private CommentDao commentdao;
+	MongoController(PostDao postdao) {
 
 		this.postdao = postdao;
 	}
@@ -92,13 +98,14 @@ public class MongoController {
 		return model;
 	}
 	@PostMapping("/comment")
-	public String saveComment(@RequestParam("comment") String comment_text,@RequestParam("post_id") int post_Id, HttpSession hs) {
+	public String saveComment(@RequestParam("comment") String comment_text,@RequestParam("newid") Integer post_id, HttpSession hs) {
 		User currentUser = (User) hs.getAttribute("user");
 		if (currentUser == null) {
 			return "redirect:/login1";
 		}
+	
 		Comment comment = new Comment();
-		
+		System.out.println("post id is " + post_id);
 		
 		
 		int count=keydao.findByIdnum(2).getValue();
@@ -109,6 +116,27 @@ public class MongoController {
 //		post.setUser_name(currentUser.getUser_name());
 //		postdao.save(post);
 //		System.out.println("successfull saving");
+		comment.setComment_id(count);
+		comment.setComment_text(comment_text);
+		commentdao.save(comment);
+		System.out.println("commnet is saved in commnet");
+		Post post = postdao.findByPost_idnum(post_id);
+		//if(post.getComments()==null){
+		/*List<Comment> list = new ArrayList<Comment>();
+		list.add(comment);
+		post.setComments(list);*/
+		System.out.println(comment_text);
+		System.out.println("commnet is saved and getcommnets is null");
+		//}
+	//	else
+		{System.out.println("commnet is saved and getcommnets is not null");
+			post.getComments().add(comment);
+		System.out.println("commnet is added");
+		}
+		
+		//post.getComments().add(comment);
+		//System.out.println("saving commnet in post");
+		
 		return "redirect:/home";
 	}
 	@GetMapping("/home")

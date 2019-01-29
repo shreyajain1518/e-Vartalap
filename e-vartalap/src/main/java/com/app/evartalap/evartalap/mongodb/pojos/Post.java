@@ -1,13 +1,15 @@
 package com.app.evartalap.evartalap.mongodb.pojos;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import  lombok.Data;
 import lombok.AllArgsConstructor;
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 @Document
 public class Post {
 	
@@ -21,8 +23,12 @@ public class Post {
 	
 	private String[] post_ratings;
 	private  int[] post_reviews;
-	private Comment[] comments;
+	private List<Comment> comments;
 	
+	public Post() {
+		super();
+		comments = new ArrayList<Comment>();
+	}
 	public int getPost_id() {
 		return post_id;
 	}
@@ -65,10 +71,11 @@ public class Post {
 	public void setPost_reviews(int[] post_reviews) {
 		this.post_reviews = post_reviews;
 	}
-	public Comment[] getComments() {
+	
+	public List<Comment> getComments() {
 		return comments;
 	}
-	public void setComments(Comment[] comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 	public String getUser_name() {
