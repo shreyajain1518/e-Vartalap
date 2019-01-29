@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,16 +23,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.app.evartalap.evartalap.mongodb.dao.PostDao;
 import com.app.evartalap.evartalap.mongodb.pojos.Comment;
 import com.app.evartalap.evartalap.mongodb.pojos.Post;
+import com.app.evartalap.evartalap.mysql.dao.KeyGeneratorDao;
+import com.app.evartalap.evartalap.mysql.pojos.KeyGenerator;
 import com.app.evartalap.evartalap.mysql.pojos.User;
 
-@RestController
+@Controller
 @RequestMapping(value = "/")
 public class MongoController {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
 	private final PostDao postdao;
-
+	@Autowired 
+	KeyGeneratorDao keydao;
 	public MongoController(PostDao postdao) {
 
 		this.postdao = postdao;
@@ -43,6 +48,11 @@ public class MongoController {
 		return postdao.findAll();
 
 	}
+	
+	
+		
+	
+	
 	// getting post by postid
 
 	@RequestMapping(value = "/{post_id}", method = RequestMethod.GET)
@@ -62,13 +72,21 @@ public class MongoController {
 			model.setViewName("login1");
 		}
 		
+		//kg.setId(1);
+		
 		Post post = new Post();
 		post.setPost_text(post_text);
-        post.setPost_id( postdao.findAll().size()+1);
+	
+		int count=keydao.findByIdnum(1).getValue();
+        post.setPost_id(count);
 		post.setUser_id(currentUser.getUser_id());
 		post.setUser_name(currentUser.getUser_name());
 		postdao.save(post);
 		System.out.println("successfull saving");
+		KeyGenerator kg = new KeyGenerator();
+		kg.setId(1);
+		kg.setValue(++count);
+		keydao.saveAndFlush(kg);
 		hs.setAttribute("allPost", postdao.findAll());
 		model.setViewName("home");
 		return model;
@@ -79,16 +97,16 @@ public class MongoController {
 		if (currentUser == null) {
 			return "redirect:/login1";
 		}
-		Comment post = new Comment();
+		Comment comment = new Comment();
 //		post.getComment_text(comment_text);
 //        post.setPost_id( UUID.randomUUID();
 //		post.setUser_id(currentUser.getUser_id());
 //		post.setUser_name(currentUser.getUser_name());
 //		postdao.save(post);
 //		System.out.println("successfull saving");
-		return "redirect:/home1";
+		return "redirect:/home";
 	}
-	@GetMapping("/home1")
+	@GetMapping("/home")
 	public ModelAndView loadAllPost(HttpSession hs) {
 		ModelAndView model = new ModelAndView();
 		User currentUser = (User) hs.getAttribute("user");
