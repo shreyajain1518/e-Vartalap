@@ -33,7 +33,7 @@
 					<c:forEach items="${allPost}" var="post">
 						<table>
 							<tr>
-								<td><div>${post.user_name} posted on ${comment.post_date}</div>
+								<td><div>${post.user_name} posted on ${post.post_date}</div>
 								<td>
 							</tr>
 							<tr>
