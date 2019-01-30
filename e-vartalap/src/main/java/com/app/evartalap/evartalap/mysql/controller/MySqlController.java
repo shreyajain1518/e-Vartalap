@@ -122,24 +122,26 @@ public class MySqlController {
 	  }
 	 
 	  
-  	@GetMapping("/forgetpassword")
+  	@GetMapping("/forgot_password")
   	public String forgetPassword()
   	{
   		
   		return "forgot_password";
   	}
-  	@PostMapping("/forgetpassword")
-  	public ModelAndView changepassword(@RequestParam String user_email ){
+  	@PostMapping("/forgot_password")
+  	public ModelAndView changepassword(@RequestParam("user_email") String user_email ){
   		ModelAndView model = new ModelAndView();
   		if(service.forgetpassword(user_email).equals("valid")){
   			model.addObject("message","successful");
   			
-  		 model.setViewName   ("redirect:/login");
+  		 model.setViewName   ("redirect:/login1");
+  		 System.out.println("successfull email");
   		return model;
   		}
   		else{
   			model.addObject("message","unsuccessful");
   			 model.setViewName("redirect:/forgot_password");
+  			System.out.println("Unsuccessfull email");	 
   			return	model;	
   		}
   	

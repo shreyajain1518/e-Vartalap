@@ -15,12 +15,12 @@
 	        <div class="jumbotron">
                <div class="form-group" style="margin-top: -50px;">
                  <h2 style="margin-left: 150px;">
-                       Forgot password
+                       Forget password
                 </h2>
       
               </div>
             
-              <form class="form-horizontal" style="margin-left: 50px;">
+              <form class="form-horizontal" style="margin-left: 50px;" method = "post" action = "/forgot_password">
                  
                  <div class="form-group input-group">
                   
@@ -35,7 +35,7 @@
                  </div>
             
                  <div class="form-group">
-                   <button class="btn btn-primary" style="width:180px;">Reset my password</button>
+                   <input type = "submit" class="btn btn-primary" style="width:180px;" value  = "Reset my passwor"/>
                  </div>
                  
               </form>

@@ -38,17 +38,11 @@
                      name="user_password" placeholder="Enter password... " required>
                  </div>
                  <div class="form-group">
-                    <label>
-                      <input type="checkbox">
-                      Remember me
-                    </label>
-                 </div>
-                 <div class="form-group">
-                 <input type = "submit" class="btn btn-first" value = "submit">
+                 <input type = "submit" class="btn btn-first" value = "Login">
                    <!--  <button class="btn btn-primary" style="width:90px;">Login</button>-->
                  </div>
                  <div class="form-group">
-                    <a href="/forgetpassword" style="margin-left: 310px;">Forget password</a>
+                    <a href="/forgot_password" style="margin-left: 310px;">Forget password</a>
                  </div>
                  <div class="form-group">
                     <a href="/register" style="margin-left">Register here</a>

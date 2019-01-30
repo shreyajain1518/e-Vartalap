@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import  lombok.Data;
 import lombok.AllArgsConstructor;
 @Data
-//@AllArgsConstructor
+@AllArgsConstructor
 @Document
 public class Post {
 	
@@ -23,11 +28,14 @@ public class Post {
 	
 	private String[] post_ratings;
 	private  int[] post_reviews;
-	private List<Comment> comments;
+  //  @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+  //  @JoinProperty(name="comments")
+/*	 @DBRef(lazy=false)
+	private List<Comment> comments = new ArrayList<Comment>();*/
 	
 	public Post() {
 		super();
-		comments = new ArrayList<Comment>();
+		//comments = new ArrayList<Comment>();
 	}
 	public int getPost_id() {
 		return post_id;
@@ -72,12 +80,12 @@ public class Post {
 		this.post_reviews = post_reviews;
 	}
 	
-	public List<Comment> getComments() {
+	/*public List<Comment> getComments() {
 		return comments;
 	}
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
+	}*/
 	public String getUser_name() {
 		return user_name;
 	}

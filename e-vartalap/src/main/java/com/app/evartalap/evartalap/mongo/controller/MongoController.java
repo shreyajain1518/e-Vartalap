@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -32,6 +33,7 @@ import com.app.evartalap.evartalap.mysql.pojos.User;
 
 @Controller
 //@RequestMapping(value = "/")
+@Transactional
 public class MongoController {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
@@ -42,6 +44,7 @@ public class MongoController {
 	
 	@Autowired
 	private CommentDao commentdao;
+	
 	MongoController(PostDao postdao) {
 
 		this.postdao = postdao;
@@ -94,6 +97,7 @@ public class MongoController {
 		kg.setValue(++count);
 		keydao.saveAndFlush(kg);
 		hs.setAttribute("allPost", postdao.findAll());
+		hs.setAttribute("allcomment", commentdao.findAll());
 		model.setViewName("home");
 		return model;
 	}
@@ -118,21 +122,34 @@ public class MongoController {
 //		System.out.println("successfull saving");
 		comment.setComment_id(count);
 		comment.setComment_text(comment_text);
+		comment.setUserId(currentUser.getUser_id());
+		comment.setPostId(post_id);
 		commentdao.save(comment);
+		KeyGenerator kg = new KeyGenerator();
+		kg.setId(2);
+		kg.setValue(++count);
+		keydao.saveAndFlush(kg);
 		System.out.println("commnet is saved in commnet");
-		Post post = postdao.findByPost_idnum(post_id);
-		//if(post.getComments()==null){
-		/*List<Comment> list = new ArrayList<Comment>();
+		/*Post post = postdao.findByPost_idnum(post_id);
+		try{
+		if(post.getComments()==null){
+		List<Comment> list = new ArrayList<Comment>();
 		list.add(comment);
-		post.setComments(list);*/
-		System.out.println(comment_text);
-		System.out.println("commnet is saved and getcommnets is null");
-		//}
-	//	else
+		post.setComments(list);
+		}
+		else
 		{System.out.println("commnet is saved and getcommnets is not null");
 			post.getComments().add(comment);
 		System.out.println("commnet is added");
 		}
+		}catch(Exception e)
+		{
+			System.out.println("Exception in saving post");
+		}*/
+		System.out.println(comment_text);
+		System.out.println("commnet is saved and getcommnets is null");
+		//}
+	//	
 		
 		//post.getComments().add(comment);
 		//System.out.println("saving commnet in post");

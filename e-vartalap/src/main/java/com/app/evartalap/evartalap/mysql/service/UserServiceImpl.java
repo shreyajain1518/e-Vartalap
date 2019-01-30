@@ -75,8 +75,9 @@ public class UserServiceImpl implements UserService {
 		User user = null;
 		
 		try{
-			user = userdao.findByUser_email(user_email);
-			String password = user.getUser_password();
+			//user = userdao.findByUser_email(user_email);
+			//String password = user.getUser_password();
+			String password = "password";
 			SimpleMailMessage mail = new SimpleMailMessage();
 			mail.setTo(user_email);
 			mail.setFrom("z.rahul.k@gmail.com");

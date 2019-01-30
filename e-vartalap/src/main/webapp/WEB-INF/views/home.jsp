@@ -58,11 +58,11 @@
 							</tr>
 							<tr>
 							<td><div id="all comments">
-							<c:forEach items="${post.comments}" var="comment">
+							<%-- <c:forEach items="${post.comments}" var="comment">
 							<div>${comment.user_name}commented on ${comment.comment_date}</div>
 							<div>${comment.comment_text}</div>
 							<div>Liked By ${comment.comment_like}  : Disliked By ${comment.comment_dislike}</div>
-							</c:forEach>
+							</c:forEach> --%>
 							</div>
 							<td>
 							</tr>
