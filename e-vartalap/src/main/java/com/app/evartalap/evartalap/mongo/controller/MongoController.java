@@ -97,7 +97,7 @@ public class MongoController {
 		kg.setValue(++count);
 		keydao.saveAndFlush(kg);
 		hs.setAttribute("allPost", postdao.findAll());
-		hs.setAttribute("allcomment", commentdao.findAll());
+		hs.setAttribute("allComment", commentdao.findAll());
 		model.setViewName("home");
 		return model;
 	}
@@ -166,7 +166,40 @@ public class MongoController {
 		}
 		model.setViewName("home");
 		hs.setAttribute("allPost", postdao.findAll());
+		hs.setAttribute("allComment", commentdao.findAll());
 		return model;
 	}
-
+	@GetMapping("/postabusive")
+	public String getPostabusive(@RequestParam("post_id") Integer post_id, HttpSession hs)
+	{
+		Post post= postdao.findByPost_idnum(post_id);
+		post.setPost_abusive( post.getPost_abusive()+1);
+		
+		return "redirect:/home";
+	}
+	@GetMapping("/commentabusive")
+	public String getCommnetabusive(@RequestParam("comment_id") Integer comment_id, HttpSession hs)
+	{
+		Comment comment= commentdao.findByComment_idnum(comment_id);
+		comment.setComment_abusive( comment.getComment_abusive()+1);
+		
+		return "redirect:/home";
+	}
+	
+	@GetMapping("/commentdislike")
+	public String getCommnetdislike(@RequestParam("comment_id") Integer comment_id, HttpSession hs)
+	{
+		Comment comment= commentdao.findByComment_idnum(comment_id);
+		comment.setComment_dislike( comment.getComment_dislike()+1);
+		
+		return "redirect:/home";
+	}
+	@GetMapping("/commentlike")
+	public String getCommnetlike(@RequestParam("comment_id") Integer comment_id, HttpSession hs)
+	{
+		Comment comment= commentdao.findByComment_idnum(comment_id);
+		comment.setComment_like( comment.getComment_like()+1);
+		
+		return "redirect:/home";
+	}
 }

@@ -13,4 +13,7 @@ public interface CommentDao extends MongoRepository<Comment,Integer>
 	@Query("{ postId: ?0}")
 	List<Comment> findByPostId(int postId);
 
+	@Query("{comment_id:?0}")
+	Comment findByComment_idnum(Integer comment_id);
+
 }
