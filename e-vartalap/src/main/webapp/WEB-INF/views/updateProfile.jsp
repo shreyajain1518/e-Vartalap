@@ -9,6 +9,8 @@
 	 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 </head>
 <body>
+
+     <jsp:include page="common.jsp" />
    <div class="container">
 	    <div class="col-sm-10" style="width: 600px;margin-left:250px;margin-top:5">
 	        <div class="jumbotron">
