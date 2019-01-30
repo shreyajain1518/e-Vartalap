@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -50,12 +52,7 @@ public class MySqlController {
   private CommentDao commentdao;
   @Autowired
   private PostDao postdao;
-  /*@GetMapping("/home")
-  public String get()
-  {
-	  System.out.println("================getCalled");
-	  return "home";
-  }*/
+  
   
   
   @GetMapping("/login1")
@@ -71,6 +68,12 @@ public class MySqlController {
   public String postLogin(@RequestParam("user_email") String email,@RequestParam("user_password") String password,HttpSession hs){
 	ModelAndView model=new ModelAndView();
 	User user = null;
+	
+	if(email.equals("rahul@gmail.com") && password.equals("1234"))
+	{
+		System.out.println("admin login");
+		return "admin";
+	}
 	try{
 		System.out.println("post method of login");
 	 user=service.findByUser_emailandpassword(email,password);
@@ -86,9 +89,7 @@ public class MySqlController {
 	if(user==null)
 		return "redirect:/login1";
 	else{
-		/*hs.setAttribute("allPost", postdao.findAll());
-		hs.setAttribute("allComment", commentdao.findAll());*/
-		//System.out.println(commentdao.findAll());
+		
 	return "redirect:"
 			+ "/home";
 	}
@@ -115,8 +116,7 @@ public class MySqlController {
 		user.setUser_name(user_name);
 		user.setUser_email(user_email);
 		user.setUser_password(user_password);
-		user.setActive(0);
-		user.setUser_photo(null);
+		
 		service.saveUser(user);
 	 model.setViewName("/login");
 	 System.out.println("successfull saving");
@@ -156,11 +156,7 @@ public class MySqlController {
   	}	
   	
   	
-     @RequestMapping(value={"/home/home"},method=RequestMethod.POST)
-     public ModelAndView home(){
-		return null;
-    	 
-     }
+    
      @GetMapping("/update")
      public ModelAndView updateProfile(HttpSession hs){
     	 ModelAndView model = new ModelAndView();
@@ -178,32 +174,10 @@ public class MySqlController {
     	 return null;
      }
      
-    //For profile photo upload
-    public static String uploadDirectory =System.getenv("user.dir")+"/uploads";
+    
+ 
  	
- 	@RequestMapping("/")
- 	public String UploadPage(Model model){
- 		return "uploadview";
- 	}
  	
- 	@RequestMapping("/upload")
- 	public String upload(Model model,@RequestParam("files") MultipartFile[] files){
- 		
- 		StringBuilder fileNames = new StringBuilder();
- 		for(MultipartFile file : files ){
- 			Path fileNameAndPath=Paths.get(uploadDirectory,file.getOriginalFilename());
-             fileNames.append(file.getOriginalFilename());
-             try {
- 				Files.write(fileNameAndPath, file.getBytes());
- 			} catch (IOException e) {
- 				// TODO Auto-generated catch block
- 				e.printStackTrace();
- 			}
- 		}
- 		
- 		 model.addAttribute("msg","Successfuly uploaded files"+fileNames.toString());
-          return "uploadstatusview";
- 	}
  	@GetMapping("/profile")
  	public String showProfile(HttpSession hs)
  	{System.out.println(hs.getAttribute("user"));
@@ -255,6 +229,25 @@ public class MySqlController {
  	{
  		return "redirect:admin";
  	}
- 	
+ 	@GetMapping("/delete")
+ 	public String deleteUser(@RequestParam("uid")int user_id)
+ 	{
+ 		userdao.deleteById(user_id);
+ 		System.out.println("delete user");
+ 		return "redirect:userlist";
+ 	}
+ 	@GetMapping("/commentlist")
+ 	public String commentlist(Model map)
+ 	{
+ 		map.addAttribute("commentlist",commentdao.findAll());
+ 		System.out.println("commentlist");
+ 		return "commentlist";
+ 	}
+ 	@GetMapping("/logout")
+	public String logMeOut(HttpSession hs, Model map) {
+		System.out.println("in logout ....");	
+		hs.invalidate();
+		return "redirect:logout";
+	}
 }
 

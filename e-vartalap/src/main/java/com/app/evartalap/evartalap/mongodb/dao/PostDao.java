@@ -14,7 +14,6 @@ import com.app.evartalap.evartalap.mongodb.pojos.Post;
 @Transactional
 public interface PostDao extends MongoRepository<Post,Integer>{
 
-	@Query("{post_id:?0}")
-	Post findByPost_idnum(Integer post_id);
+	
 	
 }

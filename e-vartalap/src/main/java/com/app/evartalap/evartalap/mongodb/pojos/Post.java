@@ -26,16 +26,12 @@ public class Post {
 	private String post_text;
 	private String user_name;
 	
-	private String[] post_ratings;
-	private  int[] post_reviews;
-  //  @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
-  //  @JoinProperty(name="comments")
-/*	 @DBRef(lazy=false)
-	private List<Comment> comments = new ArrayList<Comment>();*/
+
+  
 	
 	public Post() {
 		super();
-		//comments = new ArrayList<Comment>();
+		
 	}
 	public int getPost_id() {
 		return post_id;
@@ -67,25 +63,7 @@ public class Post {
 	public void setPost_text(String post_text) {
 		this.post_text = post_text;
 	}
-	public String[] getPost_ratings() {
-		return post_ratings;
-	}
-	public void setPost_ratings(String[] post_ratings) {
-		this.post_ratings = post_ratings;
-	}
-	public int[] getPost_reviews() {
-		return post_reviews;
-	}
-	public void setPost_reviews(int[] post_reviews) {
-		this.post_reviews = post_reviews;
-	}
 	
-	/*public List<Comment> getComments() {
-		return comments;
-	}
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}*/
 	public String getUser_name() {
 		return user_name;
 	}

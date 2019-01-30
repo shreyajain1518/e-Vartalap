@@ -15,11 +15,9 @@ public class User {
 	private String user_email;
 	private String user_password;
 	private int active;
-	@Lob
-	private byte[] user_photo;
 	
-	//@ManyToOne(CascadeType.CascadeType.class)
-	//@JoinTable(name="user_role",joinColumns=@JoinColumn(name="user_id"),inverseJoinColumns=@JoinColumn(name="role_id"))
+	
+	
 	
 	private Role role;
 	
@@ -27,14 +25,12 @@ public class User {
 		super();
 	}
 
-	public User(String user_name, String user_email, String user_password, Role role, byte[] user_photo,int active) {
+	public User(String user_name, String user_email, String user_password, Role role) {
 		super();
 		this.user_name = user_name;
 		this.user_email = user_email;
 		this.user_password = user_password;
 		this.role = role;
-		this.user_photo = user_photo;
-		this.active = active;
 	}
     
     @Id  
@@ -48,13 +44,8 @@ public class User {
 	}
 	
 
-	public int getActive() {
-		return active;
-	}
 
-	public void setActive(int active) {
-		this.active = active;
-	}
+
 
 	public String getUser_name() {
 		return user_name;
@@ -91,18 +82,11 @@ public class User {
 		this.role = role;
 	}
 
-	public byte[] getUser_photo() {
-		return user_photo;
-	}
-
-	public void setUser_photo(byte[] user_photo) {
-		this.user_photo = user_photo;
-	}
 
 	@Override
 	public String toString() {
 		return "User [user_id=" + user_id + ", user_name=" + user_name + ", user_email=" + user_email
-				+ ", user_password=" + user_password + ", role=" + role + ", user_photo=" + user_photo + "]";
+				+ ", user_password=" + user_password + ", role=" + role + "]";
 	}
 
 	

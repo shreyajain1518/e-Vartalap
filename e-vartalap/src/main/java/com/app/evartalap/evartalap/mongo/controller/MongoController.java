@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ import com.app.evartalap.evartalap.mongodb.dao.PostDao;
 import com.app.evartalap.evartalap.mongodb.pojos.Comment;
 import com.app.evartalap.evartalap.mongodb.pojos.Post;
 import com.app.evartalap.evartalap.mysql.dao.KeyGeneratorDao;
+import com.app.evartalap.evartalap.mysql.dao.UserDao;
 import com.app.evartalap.evartalap.mysql.pojos.KeyGenerator;
 import com.app.evartalap.evartalap.mysql.pojos.User;
 
@@ -38,7 +40,7 @@ import com.app.evartalap.evartalap.mysql.pojos.User;
 @EnableMongoRepositories(basePackages = "com.app.evartalap.evartalap.mongodb.dao")
 public class MongoController {
 
-	private final Logger LOG = LoggerFactory.getLogger(getClass());
+	
 
 	private final PostDao postdao;
 	@Autowired 
@@ -46,7 +48,8 @@ public class MongoController {
 	
 	@Autowired
 	private CommentDao commentdao;
-	
+	@Autowired
+	UserDao userdao;
 	MongoController(PostDao postdao) {
 
 		this.postdao = postdao;
@@ -55,7 +58,7 @@ public class MongoController {
 
 	@RequestMapping(value = "/allpost", method = RequestMethod.GET)
 	public List<Post> getAllPosts() {
-		LOG.info("getting all posts");
+	
 		return postdao.findAll();
 
 	}
@@ -68,7 +71,7 @@ public class MongoController {
 
 	@RequestMapping(value = "/{post_id}", method = RequestMethod.GET)
 	public Optional<Post> getPost(@PathVariable Integer post_id) {
-		LOG.info("getting post with id:{}.", post_id);
+		
 		return postdao.findById(post_id);
 
 	}
@@ -99,7 +102,7 @@ public class MongoController {
 		kg.setValue(++count);
 		keydao.saveAndFlush(kg);
 		
-		model.setViewName("home");
+		model.setViewName("redirect:home");
 		return model;
 	}
 	@PostMapping("/comment")
@@ -224,4 +227,48 @@ comt.setComment_like(comt.getComment_like()+1);
 commentdao.save(comt);
 		return "redirect:/home";
 	}
+	
+	
+	
+	@GetMapping("/commnetlist")
+ 	public String commentlist(Model map)
+ 	{
+ 		map.addAttribute("commentlist",commentdao.findAll());
+ 		System.out.println("commentlist");
+ 		return "commentlist";
+ 	}
+	@GetMapping("/deletecomment")
+ 	public String deletecomment(@RequestParam("vid")int comment_id)
+ 	{
+ 		commentdao.deleteById(comment_id);
+ 		Comment comt = null;
+		ArrayList<Comment> list = (ArrayList<Comment>)commentdao.findAll();
+						for(Comment com :list )
+						{
+							if(com.getComment_id()==comment_id)
+							{
+								comt=com;
+							}
+						}
+						//commentdao.delete(comt);
+ 		System.out.println("delete comment");
+ 		//commentdao.
+ 		
+ 		return "redirect:commentlist";
+ 	}
+	@GetMapping("/postlist")
+ 	public String postlist(Model map)
+ 	{
+ 		map.addAttribute("postlist",postdao.findAll());
+ 		System.out.println("postlist");
+ 		return "postlist";
+ 	}
+	@GetMapping("/deletepost")
+ 	public String deletepost(@RequestParam("pid")int post_id)
+ 	{
+ 		commentdao.deleteById(post_id);
+ 		
+ 		System.out.println("delete post");
+ 		return "redirect:postlist";
+ 	}
 }

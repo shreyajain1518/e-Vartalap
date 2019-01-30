@@ -30,7 +30,7 @@
                             <td>${p.post_id}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td>${p.post_text}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td>${p.post_abusive}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <td><a href="<spring:url value='delete?pid=${p.post_id}'/>">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <td><a href="<spring:url value='deletepost?pid=${p.post_id}'/>">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </td>
                         </tr>
                     </c:forEach>

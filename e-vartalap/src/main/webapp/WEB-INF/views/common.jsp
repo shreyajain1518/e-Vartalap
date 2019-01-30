@@ -39,10 +39,10 @@
 <ul class="nav navbar-nav navbar-right">
 
 
-<li><a href="">Home</a></li>
+<li><a href="/home">Home</a></li>
 <li><a href="/profile">View Profile</a></li>
-<li><a href="">View Users</a></li>
-<li><a href="">Logout</a></li>
+
+<li><a href="/logout">Logout</a></li>
 </ul>
 </div>
 </nav>

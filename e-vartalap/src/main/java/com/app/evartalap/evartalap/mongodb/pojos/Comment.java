@@ -19,8 +19,8 @@ public class Comment {
 	private int postId;
 	private int userId;
 	private String  comment_text;
-	private String[] comment_ratings;
-	private int[] comment_reviews;
+	
+	
 	private int comment_like;
 	private int comment_dislike;
 	private Date comment_date  = new Date();
@@ -55,18 +55,8 @@ public class Comment {
 	public void setComment_text(String comment_text) {
 		this.comment_text = comment_text;
 	}
-	public String[] getComment_ratings() {
-		return comment_ratings;
-	}
-	public void setComment_ratings(String[] comment_ratings) {
-		this.comment_ratings = comment_ratings;
-	}
-	public int[] getComment_reviews() {
-		return comment_reviews;
-	}
-	public void setComment_reviews(int[] comment_reviews) {
-		this.comment_reviews = comment_reviews;
-	}
+	
+	
 	public int getComment_like() {
 		return comment_like;
 	}
@@ -94,11 +84,11 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [comment_id=" + comment_id + ", comment_abusive=" + comment_abusive + ", postId=" + postId
-				+ ", userId=" + userId + ", comment_text=" + comment_text + ", comment_ratings="
-				+ Arrays.toString(comment_ratings) + ", comment_reviews=" + Arrays.toString(comment_reviews)
-				+ ", comment_like=" + comment_like + ", comment_dislike=" + comment_dislike + ", comment_date="
-				+ comment_date + ", user_name=" + user_name + "]";
+				+ ", userId=" + userId + ", comment_text=" + comment_text + ", comment_like=" + comment_like
+				+ ", comment_dislike=" + comment_dislike + ", comment_date=" + comment_date + ", user_name=" + user_name
+				+ "]";
 	}
+	
 
    
    
