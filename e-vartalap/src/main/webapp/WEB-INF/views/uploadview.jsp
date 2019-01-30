@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+     <jsp:include page="common.jsp" />
     <form action="/upload" method="post" enctype="multipart/form-data">
     <input type="file" name="files" multiple>
     <input type="submit" value="Upload Photo"></input>
