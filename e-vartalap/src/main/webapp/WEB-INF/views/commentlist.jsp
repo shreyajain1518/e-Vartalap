@@ -32,7 +32,7 @@
                             <td>${c.comment_ratings}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>   
                             <td>${c.comment_reviews}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td>${c.comment_like}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <td>${c.comment_dislike}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>${c.comment_abusive}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td><a href="<spring:url value='delete?vid=${p.comment_id}'/>">Delete</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </td>
                         </tr>
