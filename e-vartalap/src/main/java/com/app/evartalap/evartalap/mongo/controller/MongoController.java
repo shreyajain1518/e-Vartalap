@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,6 +35,7 @@ import com.app.evartalap.evartalap.mysql.pojos.User;
 @Controller
 //@RequestMapping(value = "/")
 @Transactional
+@EnableMongoRepositories(basePackages = "com.app.evartalap.evartalap.mongodb.dao")
 public class MongoController {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
@@ -96,8 +98,7 @@ public class MongoController {
 		kg.setId(1);
 		kg.setValue(++count);
 		keydao.saveAndFlush(kg);
-		hs.setAttribute("allPost", postdao.findAll());
-		hs.setAttribute("allComment", commentdao.findAll());
+		
 		model.setViewName("home");
 		return model;
 	}
@@ -114,12 +115,7 @@ public class MongoController {
 		
 		int count=keydao.findByIdnum(2).getValue();
 		
-//		post.getComment_text(comment_text);
-//        post.setPost_id( UUID.randomUUID();
-//		post.setUser_id(currentUser.getUser_id());
-//		post.setUser_name(currentUser.getUser_name());
-//		postdao.save(post);
-//		System.out.println("successfull saving");
+
 		comment.setComment_id(count);
 		comment.setComment_text(comment_text);
 		comment.setUserId(currentUser.getUser_id());
@@ -130,29 +126,9 @@ public class MongoController {
 		kg.setValue(++count);
 		keydao.saveAndFlush(kg);
 		System.out.println("commnet is saved in commnet");
-		/*Post post = postdao.findByPost_idnum(post_id);
-		try{
-		if(post.getComments()==null){
-		List<Comment> list = new ArrayList<Comment>();
-		list.add(comment);
-		post.setComments(list);
-		}
-		else
-		{System.out.println("commnet is saved and getcommnets is not null");
-			post.getComments().add(comment);
-		System.out.println("commnet is added");
-		}
-		}catch(Exception e)
-		{
-			System.out.println("Exception in saving post");
-		}*/
+		
 		System.out.println(comment_text);
 		System.out.println("commnet is saved and getcommnets is null");
-		//}
-	//	
-		
-		//post.getComments().add(comment);
-		//System.out.println("saving commnet in post");
 		
 		return "redirect:/home";
 	}
@@ -165,41 +141,87 @@ public class MongoController {
 			return model;
 		}
 		model.setViewName("home");
-		hs.setAttribute("allPost", postdao.findAll());
-		hs.setAttribute("allComment", commentdao.findAll());
+												hs.setAttribute("allPost", postdao.findAll());
+												hs.setAttribute("allComment", commentdao.findAll());
+												List<Comment> post1 = commentdao.findAll();
+												for(Comment post : post1)
+												{
+												System.out.println(post);
+													}
 		return model;
 	}
 	@GetMapping("/postabusive")
 	public String getPostabusive(@RequestParam("post_id") Integer post_id, HttpSession hs)
 	{
-		Post post= postdao.findByPost_idnum(post_id);
-		post.setPost_abusive( post.getPost_abusive()+1);
-		
+		Post post = null;
+		ArrayList<Post> list = (ArrayList<Post>)postdao.findAll();
+						for(Post pos :list )
+						{
+							if(pos.getPost_id()==post_id)
+							{
+								post=pos;
+							}
+						}
+System.out.println(post);
+post.setPost_abusive(post.getPost_abusive()+1);
+postdao.save(post);
 		return "redirect:/home";
 	}
 	@GetMapping("/commentabusive")
-	public String getCommnetabusive(@RequestParam("comment_id") Integer comment_id, HttpSession hs)
+	public String getCommnetabusive(@RequestParam("comment_id") int comment_id, HttpSession hs)
 	{
-		Comment comment= commentdao.findByComment_idnum(comment_id);
-		comment.setComment_abusive( comment.getComment_abusive()+1);
 		
+	
+		
+		Comment comt = null;
+							ArrayList<Comment> list = (ArrayList<Comment>)commentdao.findAll();
+											for(Comment com :list )
+											{
+												if(com.getComment_id()==comment_id)
+												{
+													comt=com;
+												}
+											}
+		System.out.println(comt);
+		comt.setComment_abusive(comt.getComment_abusive()+1);
+		commentdao.save(comt);
 		return "redirect:/home";
 	}
 	
 	@GetMapping("/commentdislike")
 	public String getCommnetdislike(@RequestParam("comment_id") Integer comment_id, HttpSession hs)
 	{
-		Comment comment= commentdao.findByComment_idnum(comment_id);
-		comment.setComment_dislike( comment.getComment_dislike()+1);
 		
+		Comment comt = null;
+		ArrayList<Comment> list = (ArrayList<Comment>)commentdao.findAll();
+						for(Comment com :list )
+						{
+							if(com.getComment_id()==comment_id)
+							{
+								comt=com;
+							}
+						}
+System.out.println(comt);
+comt.setComment_dislike(comt.getComment_dislike()+1);
+commentdao.save(comt);
 		return "redirect:/home";
 	}
 	@GetMapping("/commentlike")
 	public String getCommnetlike(@RequestParam("comment_id") Integer comment_id, HttpSession hs)
 	{
-		Comment comment= commentdao.findByComment_idnum(comment_id);
-		comment.setComment_like( comment.getComment_like()+1);
 		
+		Comment comt = null;
+		ArrayList<Comment> list = (ArrayList<Comment>)commentdao.findAll();
+						for(Comment com :list )
+						{
+							if(com.getComment_id()==comment_id)
+							{
+								comt=com;
+							}
+						}
+System.out.println(comt);
+comt.setComment_like(comt.getComment_like()+1);
+commentdao.save(comt);
 		return "redirect:/home";
 	}
 }

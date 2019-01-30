@@ -2,6 +2,7 @@
 package com.app.evartalap.evartalap.mongodb.pojos;
 
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -89,6 +90,14 @@ public class Comment {
 	}
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
+	}
+	@Override
+	public String toString() {
+		return "Comment [comment_id=" + comment_id + ", comment_abusive=" + comment_abusive + ", postId=" + postId
+				+ ", userId=" + userId + ", comment_text=" + comment_text + ", comment_ratings="
+				+ Arrays.toString(comment_ratings) + ", comment_reviews=" + Arrays.toString(comment_reviews)
+				+ ", comment_like=" + comment_like + ", comment_dislike=" + comment_dislike + ", comment_date="
+				+ comment_date + ", user_name=" + user_name + "]";
 	}
 
    

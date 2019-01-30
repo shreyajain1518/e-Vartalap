@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.app.evartalap.evartalap.mongodb.dao.CommentDao;
+import com.app.evartalap.evartalap.mongodb.dao.PostDao;
 import com.app.evartalap.evartalap.mysql.dao.UserDao;
 import com.app.evartalap.evartalap.mysql.pojos.Role;
 import com.app.evartalap.evartalap.mysql.pojos.User;
@@ -44,7 +46,10 @@ public class MySqlController {
   private RoleService roleservice;
   @Autowired
   private UserDao userdao;
-  
+  @Autowired
+  private CommentDao commentdao;
+  @Autowired
+  private PostDao postdao;
   /*@GetMapping("/home")
   public String get()
   {
@@ -80,10 +85,13 @@ public class MySqlController {
 	hs.setAttribute("user", user);
 	if(user==null)
 		return "redirect:/login1";
-	else
+	else{
+		/*hs.setAttribute("allPost", postdao.findAll());
+		hs.setAttribute("allComment", commentdao.findAll());*/
+		//System.out.println(commentdao.findAll());
 	return "redirect:"
 			+ "/home";
-	
+	}
   }
   @GetMapping("/register")
   public String registration()
