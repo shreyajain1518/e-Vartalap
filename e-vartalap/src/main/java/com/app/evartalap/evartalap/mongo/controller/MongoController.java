@@ -256,12 +256,23 @@ commentdao.save(comt);
  		
  		return "redirect:commentlist";
  	}
+	/*@PostMapping("/commentlist")
+ 	public String backtoadmincommentlist(HttpSession hs)
+ 	{
+ 		return "redirect:admin";
+ 	}
+	*/
 	@GetMapping("/postlist")
  	public String postlist(Model map)
  	{
  		map.addAttribute("postlist",postdao.findAll());
  		System.out.println("postlist");
  		return "postlist";
+ 	}
+	@PostMapping("/postlist")
+ 	public String backtoadminpostlist(HttpSession hs)
+ 	{
+ 		return "redirect:admin";
  	}
 	@GetMapping("/deletepost")
  	public String deletepost(@RequestParam("pid")int post_id)

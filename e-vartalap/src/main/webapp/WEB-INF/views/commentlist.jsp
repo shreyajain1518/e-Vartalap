@@ -22,7 +22,7 @@
       
               </div>
             
-              <form class="form-horizontal">
+              <form class="form-horizontal" method="post">
         
                 <table style="background-color: rgb(245, 159, 219); margin: auto;" border="1">
                     <c:forEach var="c" items="${requestScope.commentlist}">
@@ -38,6 +38,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    <tr><td><input type="submit" class="btn btn-first" value="Back" ></td></tr>
                 </table>
               </form>
 	        </div>    

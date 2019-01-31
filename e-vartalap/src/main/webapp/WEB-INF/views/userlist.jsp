@@ -22,7 +22,7 @@
       
               </div>
             
-              <form class="form-horizontal" style="margin-left: 10px;">
+              <form class="form-horizontal" style="margin-left: 10px;"method="post">
         
                 <table style="background-color: rgb(245, 159, 219); margin: auto;" border="1">
                     <c:forEach var="u" items="${requestScope.userlist}">
@@ -34,6 +34,7 @@
                             </td>
                         </tr>
                     </c:forEach>
+                    <tr><td><input type="submit" class="btn btn-first" value="Back" ></td></tr>
                 </table>
               </form>
 	        </div>    

@@ -23,17 +23,17 @@
                  <tr class="form-group input-group">   
                  <th><b>All users</b> &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;</th>
                 
-                 <td><input type="submit" class="btn btn-primary" style="width:90px;" value="user" formaction="userlist"></td>
+                 <td><a href="/userlist">userlist</a></td>
                  </tr>  
 
                  <tr class="form-group input-group">   
                     <th><b>All posts</b>&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;</th>
-                    <td><input type="submit" class="btn btn-primary" style="width:90px;" value="posts" formaction="postlist"></td>
+                    <td><a href="/postlist">Postlist</a></td>
                  </tr>  
 
                  <tr class="form-group input-group">   
                     <th><b>All comments</b>&nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp;</th>
-                    <td><input type="submit" class="btn btn-primary" style="width:90px;" value="comments" formaction="commentlist"></td>
+                    <td><a href="/commentlist">Commentlist</a></td>
                  </tr>  
               </table>
 	        </div>    

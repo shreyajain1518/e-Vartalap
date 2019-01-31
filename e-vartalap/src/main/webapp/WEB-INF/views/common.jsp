@@ -42,7 +42,7 @@
 <li><a href="/home">Home</a></li>
 <li><a href="/profile">View Profile</a></li>
 
-<li><a href="/logout">Logout</a></li>
+<li><a href="/userlogout">Logout</a></li>
 </ul>
 </div>
 </nav>

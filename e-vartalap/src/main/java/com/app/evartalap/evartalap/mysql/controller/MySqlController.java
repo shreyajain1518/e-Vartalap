@@ -243,11 +243,17 @@ public class MySqlController {
  		System.out.println("commentlist");
  		return "commentlist";
  	}
- 	@GetMapping("/logout")
+ 	@PostMapping("/commentlist")
+ 	public String backtoadmincommentlist(HttpSession hs)
+ 	{
+ 		return "redirect:admin";
+ 	}
+ 	
+ 	@GetMapping("/userlogout")
 	public String logMeOut(HttpSession hs, Model map) {
 		System.out.println("in logout ....");	
 		hs.invalidate();
-		return "redirect:logout";
+		return "redirect:login1";
 	}
 }
 

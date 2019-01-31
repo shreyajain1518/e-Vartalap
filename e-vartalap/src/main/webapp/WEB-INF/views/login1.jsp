@@ -42,7 +42,7 @@
                    <!--  <button class="btn btn-primary" style="width:90px;">Login</button>-->
                  </div>
                  <div class="form-group">
-                    <a href="/forgot_password" style="margin-left: 310px;">Forget password</a>
+                    <a href="/forgot_password" style="margin-left: 310px;">Forgot password</a>
                  </div>
                  <div class="form-group">
                     <a href="/register" style="margin-left">Register here</a>
