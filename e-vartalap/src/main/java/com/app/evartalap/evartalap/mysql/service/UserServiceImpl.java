@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	
 	@Override
 	public String forgetpassword(String user_email) {
 		
